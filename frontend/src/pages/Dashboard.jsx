@@ -2,147 +2,51 @@ import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 
 function Dashboard() {
-  const atsData = JSON.parse(
-    localStorage.getItem("atsData")
-  );
-
   return (
-    <div style={{ display: "flex" }}>
+    <div className="flex">
       <Sidebar />
 
-      <div style={{ flex: 1 }}>
+      <div className="flex-1 bg-gray-100 min-h-screen">
         <Navbar />
 
-        <div style={{ padding: "20px" }}>
-          <h1>Dashboard</h1>
+        <div className="p-6">
+          <h1 className="text-3xl font-bold mb-6">
+            Dashboard
+          </h1>
 
-          {/* Stats Cards */}
-          <div
-            style={{
-              display: "flex",
-              gap: "20px",
-              marginTop: "20px",
-              flexWrap: "wrap",
-            }}
-          >
-            <div
-              style={{
-                border: "1px solid #ddd",
-                padding: "20px",
-                width: "220px",
-                borderRadius: "10px",
-              }}
-            >
-              <h3>ATS Score</h3>
-              <h1>
-                {atsData
-                  ? `${atsData.atsScore}%`
-                  : "N/A"}
-              </h1>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-            <div
-              style={{
-                border: "1px solid #ddd",
-                padding: "20px",
-                width: "220px",
-                borderRadius: "10px",
-              }}
-            >
-              <h3>Skills Found</h3>
-              <h1>
-                {atsData
-                  ? atsData.foundSkills.length
-                  : 0}
-              </h1>
-            </div>
-
-            <div
-              style={{
-                border: "1px solid #ddd",
-                padding: "20px",
-                width: "220px",
-                borderRadius: "10px",
-              }}
-            >
-              <h3>Missing Skills</h3>
-              <h1>
-                {atsData
-                  ? atsData.missingSkills.length
-                  : 0}
-              </h1>
-            </div>
-          </div>
-
-          {/* Skills Section */}
-          {atsData && (
-            <div
-              style={{
-                marginTop: "30px",
-                display: "flex",
-                gap: "30px",
-              }}
-            >
-              <div
-                style={{
-                  border: "1px solid #ddd",
-                  padding: "20px",
-                  width: "350px",
-                  borderRadius: "10px",
-                }}
-              >
-                <h2>Skills Found</h2>
-
-                <ul>
-                  {atsData.foundSkills.map(
-                    (skill, index) => (
-                      <li key={index}>
-                        {skill}
-                      </li>
-                    )
-                  )}
-                </ul>
-              </div>
-
-              <div
-                style={{
-                  border: "1px solid #ddd",
-                  padding: "20px",
-                  width: "350px",
-                  borderRadius: "10px",
-                }}
-              >
-                <h2>Missing Skills</h2>
-
-                <ul>
-                  {atsData.missingSkills.map(
-                    (skill, index) => (
-                      <li key={index}>
-                        {skill}
-                      </li>
-                    )
-                  )}
-                </ul>
-              </div>
-            </div>
-          )}
-
-          {!atsData && (
-            <div
-              style={{
-                marginTop: "30px",
-              }}
-            >
-              <h3>
-                No ATS report found.
+            <div className="bg-white shadow-lg rounded-xl p-6">
+              <h3 className="text-gray-500">
+                ATS Score
               </h3>
 
-              <p>
-                Upload a resume first to
-                view ATS analysis.
-              </p>
+              <h1 className="text-4xl font-bold text-green-600 mt-2">
+                83%
+              </h1>
             </div>
-          )}
+
+            <div className="bg-white shadow-lg rounded-xl p-6">
+              <h3 className="text-gray-500">
+                Skills Found
+              </h3>
+
+              <h1 className="text-4xl font-bold text-blue-600 mt-2">
+                10
+              </h1>
+            </div>
+
+            <div className="bg-white shadow-lg rounded-xl p-6">
+              <h3 className="text-gray-500">
+                Interview Questions
+              </h3>
+
+              <h1 className="text-4xl font-bold text-purple-600 mt-2">
+                4
+              </h1>
+            </div>
+
+          </div>
         </div>
       </div>
     </div>

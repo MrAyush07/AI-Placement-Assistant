@@ -2,96 +2,69 @@ import { Link } from "react-router-dom";
 
 function Sidebar() {
   return (
-    <div
-      style={{
-        width: "250px",
-        minHeight: "100vh",
-        backgroundColor: "#1e293b",
-        color: "white",
-        padding: "20px",
-        boxSizing: "border-box",
-      }}
-    >
-      <h2>Placement AI</h2>
+    <div className="w-64 min-h-screen bg-slate-900 text-white p-6 shadow-lg">
+      <h1 className="text-2xl font-bold mb-8 text-center">
+        Placement AI
+      </h1>
 
-      <nav
-        style={{
-          marginTop: "30px",
-          display: "flex",
-          flexDirection: "column",
-          gap: "15px",
-        }}
-      >
+      <nav className="flex flex-col gap-3">
+
         <Link
           to="/dashboard"
-          style={{
-            color: "white",
-            textDecoration: "none",
-          }}
+          className="px-4 py-3 rounded-lg hover:bg-slate-700 transition duration-300"
         >
-          Dashboard
+          📊 Dashboard
         </Link>
 
         <Link
           to="/upload"
-          style={{
-            color: "white",
-            textDecoration: "none",
-          }}
+          className="px-4 py-3 rounded-lg hover:bg-slate-700 transition duration-300"
         >
-          Resume Upload
+          📄 Resume Upload
         </Link>
 
         <Link
           to="/interview"
-          style={{
-            color: "white",
-            textDecoration: "none",
-          }}
+          className="px-4 py-3 rounded-lg hover:bg-slate-700 transition duration-300"
         >
-          Interview Prep
+          🎯 Interview Prep
         </Link>
 
         <Link
           to="/jobs"
-          style={{
-            color: "white",
-            textDecoration: "none",
-          }}
+          className="px-4 py-3 rounded-lg hover:bg-slate-700 transition duration-300"
         >
-          Job Recommendations
+          💼 Job Recommendations
         </Link>
 
         <Link
           to="/history"
-          style={{
-            color: "white",
-            textDecoration: "none",
-          }}
+          className="px-4 py-3 rounded-lg hover:bg-slate-700 transition duration-300"
         >
-          ATS History
+          📈 ATS History
         </Link>
 
         <Link
           to="/admin"
-          style={{
-            color: "white",
-            textDecoration: "none",
-          }}
+          className="px-4 py-3 rounded-lg hover:bg-slate-700 transition duration-300"
         >
-          Admin Dashboard
+          ⚙️ Admin Dashboard
         </Link>
 
         <Link
           to="/suggestions"
-          style={{
-            color: "white",
-            textDecoration: "none",
-          }}
+          className="px-4 py-3 rounded-lg hover:bg-slate-700 transition duration-300"
         >
-          Resume Suggestions
+          🚀 Resume Suggestions
         </Link>
+
       </nav>
+
+      <div className="mt-12 border-t border-slate-700 pt-4">
+        <p className="text-sm text-slate-400 text-center">
+          AI Placement Assistant
+        </p>
+      </div>
     </div>
   );
 }
