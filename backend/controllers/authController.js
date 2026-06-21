@@ -1,17 +1,19 @@
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
+// Register User
 const register = async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
     const existingUser = await User.findOne({
-      email
+      email,
     });
 
     if (existingUser) {
       return res.status(400).json({
-        message: "User already exists"
+        message: "User already exists",
       });
     }
 
@@ -21,38 +23,32 @@ const register = async (req, res) => {
     const user = await User.create({
       name,
       email,
-      password: hashedPassword
+      password: hashedPassword,
     });
 
     res.status(201).json({
       message: "User registered successfully",
-      user
+      user,
     });
-
   } catch (error) {
     res.status(500).json({
-      message: error.message
+      message: error.message,
     });
   }
 };
 
-module.exports = {
-  register
-};
-const jwt = require("jsonwebtoken");
-
+// Login User
 const login = async (req, res) => {
   try {
-
     const { email, password } = req.body;
 
     const user = await User.findOne({
-      email
+      email,
     });
 
     if (!user) {
       return res.status(404).json({
-        message: "User not found"
+        message: "User not found",
       });
     }
 
@@ -64,33 +60,33 @@ const login = async (req, res) => {
 
     if (!isMatch) {
       return res.status(400).json({
-        message: "Invalid password"
+        message: "Invalid password",
       });
     }
 
     const token = jwt.sign(
       {
-        id: user._id
+        id: user._id,
       },
-      "secret123",
+      process.env.JWT_SECRET || "secret123",
       {
-        expiresIn: "1d"
+        expiresIn: "1d",
       }
     );
 
     res.json({
       message: "Login Successful",
       token,
-      user
+      user,
     });
-
   } catch (error) {
     res.status(500).json({
-      message: error.message
+      message: error.message,
     });
   }
 };
+
 module.exports = {
   register,
-  login
+  login,
 };
