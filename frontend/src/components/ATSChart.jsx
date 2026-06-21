@@ -1,3 +1,6 @@
+import { useEffect, useState } from "react";
+import api from "../services/api";
+
 import {
   LineChart,
   Line,
@@ -9,24 +12,42 @@ import {
 } from "recharts";
 
 function ATSChart() {
-  const data = [
-    {
-      name: "Attempt 1",
-      score: 65,
-    },
-    {
-      name: "Attempt 2",
-      score: 72,
-    },
-    {
-      name: "Attempt 3",
-      score: 78,
-    },
-    {
-      name: "Attempt 4",
-      score: 83,
-    },
-  ];
+  const [chartData, setChartData] = useState([]);
+
+  useEffect(() => {
+    fetchHistory();
+  }, []);
+
+  const fetchHistory = async () => {
+    try {
+      const response = await api.get(
+        "/reports/history"
+      );
+
+      const formattedData =
+        response.data
+          .reverse()
+          .map((item) => ({
+            date: new Date(
+              item.createdAt
+            ).toLocaleDateString(
+              "en-IN",
+              {
+                day: "numeric",
+                month: "short",
+              }
+            ),
+
+            score: item.atsScore,
+          }));
+
+      setChartData(
+        formattedData
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="bg-white p-6 rounded-xl shadow-lg">
@@ -38,10 +59,10 @@ function ATSChart() {
         width="100%"
         height={300}
       >
-        <LineChart data={data}>
+        <LineChart data={chartData}>
           <CartesianGrid strokeDasharray="3 3" />
 
-          <XAxis dataKey="name" />
+          <XAxis dataKey="date" />
 
           <YAxis />
 
