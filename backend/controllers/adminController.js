@@ -2,23 +2,18 @@ const ATSReport = require("../models/ATSReport");
 
 const getAdminStats = async (req, res) => {
   try {
+    const reports = await ATSReport.find();
 
-    const reports =
-      await ATSReport.find();
-
-    const totalReports =
-      reports.length;
+    const totalReports = reports.length;
 
     const averageATS =
       totalReports > 0
         ? Math.round(
             reports.reduce(
               (sum, report) =>
-                sum +
-                report.atsScore,
+                sum + report.atsScore,
               0
-            ) /
-              totalReports
+            ) / totalReports
           )
         : 0;
 
@@ -26,64 +21,43 @@ const getAdminStats = async (req, res) => {
       totalReports > 0
         ? Math.max(
             ...reports.map(
-              (report) =>
-                report.atsScore
+              (r) => r.atsScore
             )
           )
         : 0;
 
-    const skillCount = {};
+    const skills = {};
 
-    reports.forEach(
-      (report) => {
-
-        report.foundSkills.forEach(
-          (skill) => {
-
-            skillCount[skill] =
-              (
-                skillCount[
-                  skill
-                ] || 0
-              ) + 1;
-
-          }
-        );
-
-      }
-    );
+    reports.forEach((report) => {
+      report.foundSkills.forEach(
+        (skill) => {
+          skills[skill] =
+            (skills[skill] || 0) + 1;
+        }
+      );
+    });
 
     const topSkills =
-      Object.entries(
-        skillCount
-      )
+      Object.entries(skills)
         .sort(
-          (a, b) =>
-            b[1] - a[1]
+          (a, b) => b[1] - a[1]
         )
         .slice(0, 5)
-        .map(
-          (item) =>
-            item[0]
-        );
+        .map((item) => item[0]);
 
     res.json({
       totalReports,
       averageATS,
       highestATS,
-      topSkills
+      topSkills,
     });
-
   } catch (error) {
-
     res.status(500).json({
-      message:
-        error.message
+      message: error.message,
     });
-
   }
 };
 
 module.exports = {
-  getAdminStats
+  getAdminStats,
 };
