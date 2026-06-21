@@ -35,7 +35,7 @@ Deployment:
 ## Live Demo
 
 Frontend:
-https://ai-placement-assistant-in8avq3yl-trio7.vercel.app
+https://ai-placement-assistant-eta.vercel.app/
 
 Backend:
 https://ai-placement-assistant-ff16.onrender.com
